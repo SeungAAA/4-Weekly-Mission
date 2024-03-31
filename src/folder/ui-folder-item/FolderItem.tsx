@@ -1,5 +1,6 @@
 import styles from './FolderItem.module.scss';
 import classNames from 'classnames/bind';
+import { MouseEventHandler } from 'react';
 
 const cx = classNames.bind(styles);
 
@@ -7,7 +8,7 @@ interface FolderItemProps {
   folderName: string;
   linkCount: number;
   isSelected: boolean;
-  onClick: () => void;
+  onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
 export const FolderItem = ({

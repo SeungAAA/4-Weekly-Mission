@@ -1,12 +1,3 @@
-<<<<<<< HEAD:src/pages/SharedPage.tsx
-import { useGetFolder } from 'folder/data-access-folder';
-import { Layout } from 'sharing/feature-layout';
-import { SharedLayout } from 'page-layout/SharedLayout';
-import { CardList } from 'link/ui-card-list';
-import { FolderInfo } from 'folder/ui-folder-info';
-import { ReadOnlyCard } from 'link/ui-read-only-card';
-import { SearchBar } from 'link/ui-search-bar';
-=======
 import { useGetFolder } from "folder/data-access-folder";
 import { Layout } from "sharing/feature-layout";
 import { SharedLayout } from "page-layout/SharedLayout";
@@ -14,15 +5,12 @@ import { CardList } from "link/ui-card-list";
 import { FolderInfo } from "folder/ui-folder-info";
 import { ReadOnlyCard } from "link/ui-read-only-card";
 import { SearchBar } from "link/ui-search-bar";
->>>>>>> part2-백승아-week9:src/pages/SharedPage.jsx
-
-interface LinkData {
-  id: number;
-}
+import { useSearchLink } from "link/util-search-link/useSearchLink";
 
 export const SharedPage = () => {
   const { data } = useGetFolder();
   const { profileImage, ownerName, folderName, links } = data || {};
+  const { searchValue, handleChange, handleCloseClick, result } = useSearchLink(links);
 
   return (
     <Layout>
@@ -30,10 +18,12 @@ export const SharedPage = () => {
         folderInfo={
           <FolderInfo profileImage={profileImage} ownerName={ownerName} folderName={folderName} />
         }
-        searchBar={<SearchBar />}
+        searchBar={
+          <SearchBar value={searchValue} onChange={handleChange} onCloseClick={handleCloseClick} />
+        }
         cardList={
           <CardList>
-            {links?.map((link: LinkData) => (
+            {result?.map((link) => (
               <ReadOnlyCard key={link?.id} {...link} />
             ))}
           </CardList>

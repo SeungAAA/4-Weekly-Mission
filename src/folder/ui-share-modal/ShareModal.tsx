@@ -7,17 +7,18 @@ import { ModalContentTitle } from 'sharing/ui-modal-content-title';
 import { ReactComponent as KakaoIcon } from './kakao.svg';
 import { ReactComponent as FacebookIcon } from './facebook.svg';
 import { ReactComponent as LinkIcon } from './link.svg';
+import { KeyboardEventHandler, MouseEventHandler } from "react";
 
 const cx = classNames.bind(styles);
 
 interface ShareModalProps {
   isOpen: boolean;
   folderName: string;
-  onKakaoClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  onFacebookClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  onLinkCopyClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  onCloseClick: (event: React.MouseEvent<HTMLDivElement>) => void;
-  onKeyDown: (event: React.KeyboardEvent<HTMLDivElement>) => void;
+  onKakaoClick: MouseEventHandler<HTMLButtonElement>;
+  onFacebookClick: MouseEventHandler<HTMLButtonElement>;
+  onLinkCopyClick: MouseEventHandler<HTMLButtonElement>;
+  onCloseClick: MouseEventHandler<HTMLDivElement | HTMLButtonElement>;
+  onKeyDown: KeyboardEventHandler<HTMLDivElement>;
 }
 
 export const ShareModal = ({

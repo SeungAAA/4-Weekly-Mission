@@ -1,17 +1,24 @@
-import styles from './Modal.module.scss';
-import classNames from 'classnames/bind';
-import { Portal } from 'sharing/ui-portal';
+import styles from "./Modal.module.scss";
+import classNames from "classnames/bind";
+import {
+  KeyboardEvent,
+  KeyboardEventHandler,
+  MouseEvent,
+  MouseEventHandler,
+  ReactNode,
+} from "react";
+import { Portal } from "sharing/ui-portal";
 
 const cx = classNames.bind(styles);
 
-interface ModalProps {
-  children: React.ReactNode;
+type ModalProps = {
+  children: ReactNode;
   isOpen?: boolean;
   disableScrollLock?: boolean;
   hideBackdrop?: boolean;
-  onBackdropClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
-  onKeyDown?: (event: React.KeyboardEvent<HTMLDivElement>) => void;
-}
+  onBackdropClick?: MouseEventHandler<HTMLDivElement>;
+  onKeyDown?: KeyboardEventHandler<HTMLDivElement>;
+};
 
 export const Modal = ({
   children,
@@ -21,7 +28,7 @@ export const Modal = ({
   onBackdropClick,
   onKeyDown,
 }: ModalProps) => {
-  const handleBackdropClick = (event) => {
+  const handleBackdropClick = (event: MouseEvent<HTMLDivElement>) => {
     if (event.target !== event.currentTarget) {
       return;
     }
@@ -31,7 +38,7 @@ export const Modal = ({
     }
   };
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (onKeyDown) {
       onKeyDown(event);
     }
@@ -44,7 +51,7 @@ export const Modal = ({
   return (
     <Portal>
       <div
-        className={cx('container', { backdrop: !hideBackdrop })}
+        className={cx("container", { backdrop: !hideBackdrop })}
         onClick={handleBackdropClick}
         onKeyDown={handleKeyDown}
         tabIndex={0}

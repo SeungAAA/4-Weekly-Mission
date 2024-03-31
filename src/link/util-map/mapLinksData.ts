@@ -1,20 +1,19 @@
 import format from 'date-fns/format';
 import { getElapsedTime } from 'sharing/util';
 
-interface Link {
+export const mapLinksData = (link: {
   id: number;
-  createdAt: number;
-  url: string;
+  createdAt: string;
   imageSource: string;
-  title?: string;
-  description?: string;
-}
-
-export const mapLinksData = (link: Link) => {
+  url: string;
+  title: string;
+  description: string;
+}) => {
   const { id, createdAt, url, imageSource, title, description } = link;
 
   return {
     id,
+    title,
     url,
     imageSource,
     alt: `${title ?? url}의 대표 이미지`,

@@ -3,12 +3,12 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-interface CardContentProps {
-  elapsedTime: number;
+type CardContentProps = {
+  elapsedTime: string;
   description: string;
-  createdAt: number;
-  isHovered?: boolean;
-}
+  createdAt: string;
+  isHovered: boolean;
+};
 
 export const CardContent = ({
   elapsedTime,

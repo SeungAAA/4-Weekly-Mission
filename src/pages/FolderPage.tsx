@@ -8,17 +8,24 @@ import { useState } from "react";
 import { ALL_LINKS_ID } from "link/data-access-link/constant";
 import { LinkForm } from "link/feature-link-form";
 import { CardList } from "link/feature-card-list";
+import { SelectedFolderId } from "folder/type";
+import { useSearchLink } from "link/util-search-link/useSearchLink";
+import { useIntersectionObserver } from "sharing/util/useIntersectionObserver";
 
 export const FolderPage = () => {
   const { data: folders } = useGetFolders();
-  const [selectedFolderId, setSelectedFolderId] = useState(ALL_LINKS_ID);
+  const [selectedFolderId, setSelectedFolderId] = useState<SelectedFolderId>(ALL_LINKS_ID);
   const { data: links, loading } = useGetLinks(selectedFolderId);
+  const { searchValue, handleChange, handleCloseClick, result } = useSearchLink(links);
+  const { ref, isIntersecting } = useIntersectionObserver<HTMLDivElement>();
 
   return (
-    <Layout isSticky={false}>
+    <Layout isSticky={false} footerRef={ref}>
       <FolderLayout
-        linkForm={<LinkForm />}
-        searchBar={<SearchBar />}
+        linkForm={<LinkForm hideFixedLinkForm={isIntersecting} />}
+        searchBar={
+          <SearchBar value={searchValue} onChange={handleChange} onCloseClick={handleCloseClick} />
+        }
         folderToolBar={
           <FolderToolBar
             folders={folders}
@@ -26,7 +33,7 @@ export const FolderPage = () => {
             onFolderClick={setSelectedFolderId}
           />
         }
-        cardList={loading ? null : <CardList links={links} />}
+        cardList={loading ? null : <CardList links={result} />}
       />
     </Layout>
   );

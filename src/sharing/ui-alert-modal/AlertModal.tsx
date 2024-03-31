@@ -1,5 +1,6 @@
 import styles from './AlertModal.module.scss';
 import classNames from 'classnames/bind';
+import { KeyboardEventHandler, MouseEventHandler } from 'react';
 import { Modal } from 'sharing/ui-modal';
 import { ModalContentBox } from 'sharing/ui-modal-content-box';
 import { ModalContentButton } from 'sharing/ui-modal-content-button';
@@ -8,15 +9,15 @@ import { ModalContentTitle } from 'sharing/ui-modal-content-title';
 
 const cx = classNames.bind(styles);
 
-interface AlertModalProps {
+type AlertModalProps = {
   isOpen: boolean;
   title: string;
   description: string;
   buttonText: string;
-  onClick: () => void;
-  onCloseClick: () => void;
-  onKeyDown: (event: React.KeyboardEvent<HTMLDivElement>) => void;
-}
+  onClick: MouseEventHandler<HTMLButtonElement>;
+  onCloseClick: MouseEventHandler<HTMLDivElement | HTMLButtonElement>;
+  onKeyDown: KeyboardEventHandler<HTMLDivElement>;
+};
 
 export const AlertModal = ({
   isOpen,

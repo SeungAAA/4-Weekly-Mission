@@ -1,11 +1,12 @@
 import styles from './FolderButton.module.scss';
 import classNames from 'classnames/bind';
+import { MouseEventHandler } from 'react';
 
 const cx = classNames.bind(styles);
 
 interface FolderButtonProps {
   text: string;
-  onClick: () => void;
+  onClick: MouseEventHandler<HTMLButtonElement>;
   isSelected?: boolean;
 }
 

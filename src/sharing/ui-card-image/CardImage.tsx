@@ -4,18 +4,20 @@ import { DEFAULT_IMAGE } from './constant';
 
 const cx = classNames.bind(styles);
 
-interface CardImageProps {
-  imageSource?: string;
-  alt: string;
+type CardImageProps = {
+  imageSource: string;
   isZoomedIn: boolean;
-}
+  alt: string;
+};
 
-export const CardImage = ({ imageSource, alt, isZoomedIn }: CardImageProps) => {
+export const CardImage = ({ imageSource, isZoomedIn, alt }: CardImageProps) => {
   return (
-    <div
-      style={{ backgroundImage: `url(${imageSource ?? DEFAULT_IMAGE})` }}
-      className={cx('container', { zoomin: isZoomedIn })}
-      alt={alt}
-    />
+    <div className={cx('container')}>
+      <img
+        src={imageSource ?? DEFAULT_IMAGE}
+        className={cx('image', { zoomin: isZoomedIn })}
+        alt={alt}
+      />
+    </div>
   );
 };

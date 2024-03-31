@@ -2,29 +2,25 @@ import { useGetFolders } from 'folder/data-access-folder';
 import { AddLinkModal } from 'link/ui-add-link-modal';
 import { EditableCard } from 'link/ui-editable-card';
 import { NoLink } from 'link/ui-no-link';
-import { useCallback, useRef, useState } from 'react';
+import { KeyboardEventHandler, useCallback, useRef, useState } from 'react';
 import { CardList as UiCardList } from 'link/ui-card-list';
 import { AlertModal } from 'sharing/ui-alert-modal';
 import { MODALS_ID } from './constant';
+import { Link } from 'link/type';
 
-interface Link {
-  id: string;
-  url: string;
-}
-
-interface CardListProps {
+type CardListProps = {
   links: Link[];
-}
+};
 
-export const CardList: React.FC<CardListProps> = ({ links }) => {
+export const CardList = ({ links }: CardListProps) => {
   const { data: folders } = useGetFolders();
-  const cardListRef = useRef<HTMLDivElement>(null);
-  const [selectedFolderId, setSelectedFolderId] = useState<string | null>(null);
+  const cardListRef = useRef(null);
+  const [selectedFolderId, setSelectedFolderId] = useState<number | null>(null);
   const [currentModal, setCurrentModal] = useState<string | null>(null);
-  const [selectedLinkUrl, setSelectedLinkUrl] = useState<string | null>(null);
+  const [selectedLinkUrl, setSelectedLinkUrl] = useState<string>('');
 
   const closeModal = () => setCurrentModal(null);
-  const handleKeyDown = (event: KeyboardEvent) => {
+  const handleKeyDown: KeyboardEventHandler<HTMLDivElement> = (event) => {
     if (event.key === 'Escape') {
       closeModal();
     }
@@ -56,10 +52,13 @@ export const CardList: React.FC<CardListProps> = ({ links }) => {
           {...link}
           popoverPosition={getPopoverPosition(index)}
           onDeleteClick={() => {
-            setSelectedLinkUrl(link?.url);
+            setSelectedLinkUrl(link?.url ?? '');
             setCurrentModal(MODALS_ID.deleteLink);
           }}
-          onAddToFolderClick={() => setCurrentModal(MODALS_ID.addToFolder)}
+          onAddToFolderClick={() => {
+            setSelectedLinkUrl(link?.url ?? '');
+            setCurrentModal(MODALS_ID.addToFolder);
+          }}
         />
       ))}
       <AlertModal
@@ -67,13 +66,14 @@ export const CardList: React.FC<CardListProps> = ({ links }) => {
         title='링크 삭제'
         description={selectedLinkUrl}
         buttonText='삭제하기'
+        onClick={() => {}}
         onCloseClick={closeModal}
         onKeyDown={handleKeyDown}
       />
       <AddLinkModal
         isOpen={currentModal === MODALS_ID.addToFolder}
         folders={folders}
-        selectedLinkUrl={selectedLinkUrl}
+        description={selectedLinkUrl}
         selectedFolderId={selectedFolderId}
         setSelectedFolderId={setSelectedFolderId}
         onAddClick={() => {}}

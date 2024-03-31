@@ -1,24 +1,24 @@
-import styles from './Popover.module.scss';
-import classNames from 'classnames/bind';
-import { useCallback, useMemo, useRef } from 'react';
-import { Portal } from 'sharing/ui-portal';
-import { useBackgroundClick } from 'sharing/util/useBackgroundClick';
+import styles from "./Popover.module.scss";
+import classNames from "classnames/bind";
+import { CSSProperties, useCallback, useMemo, useRef } from "react";
+import { Portal } from "sharing/ui-portal";
+import { useBackgroundClick } from "sharing/util";
 
 const cx = classNames.bind(styles);
 
-interface PopoverProps {
+type PopoverProps = {
   children: React.ReactNode;
   isOpen: boolean;
-  anchorRef: React.RefObject<HTMLElement>;
+  anchorRef?: React.MutableRefObject<Element | null>;
   anchorPosition?: {
-    top?: string | number;
-    right?: string | number;
-    bottom?: string | number;
-    left?: string | number;
+    top?: CSSProperties["top"];
+    right?: CSSProperties["right"];
+    bottom?: CSSProperties["bottom"];
+    left?: CSSProperties["left"];
   };
   disableCloseWithBackgroundClick?: boolean;
   onBackgroundClick: () => void;
-}
+};
 
 export const Popover = ({
   children,
@@ -31,16 +31,16 @@ export const Popover = ({
   const popoverRef = useRef<HTMLDivElement>(null);
   const positionStyle = useMemo(() => {
     return {
-      top: anchorPosition?.top ?? 'unset',
-      right: anchorPosition?.right ?? 'unset',
-      bottom: anchorPosition?.bottom ?? 'unset',
-      left: anchorPosition?.left ?? 'unset',
+      top: anchorPosition?.top ?? "unset",
+      right: anchorPosition?.right ?? "unset",
+      bottom: anchorPosition?.bottom ?? "unset",
+      left: anchorPosition?.left ?? "unset",
     };
   }, [anchorPosition]);
-  const handleBackgroundClick = useCallback(
-    (event: React.MouseEvent) => {
-      const isPopover = popoverRef.current?.contains(event.target as Node);
-      const isAnchor = anchorRef.current?.contains(event.target as Node);
+  const handleBackgroundClick = useCallback<(event: MouseEvent) => void>(
+    ({ target }) => {
+      const isPopover = popoverRef.current?.contains(target as Node);
+      const isAnchor = anchorRef?.current?.contains(target as Node);
       if (!isPopover && !isAnchor && !disableCloseWithBackgroundClick && isOpen) {
         onBackgroundClick();
       }
@@ -54,8 +54,8 @@ export const Popover = ({
   }
 
   return (
-    <Portal container={anchorRef.current}>
-      <div className={cx('popover')} style={{ ...positionStyle }}>
+    <Portal container={anchorRef?.current}>
+      <div className={cx("popover")} ref={popoverRef} style={{ ...positionStyle }}>
         {children}
       </div>
     </Portal>

@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { useEffectOnce } from "./useEffectOnce";
+import { useState } from 'react';
+import { useEffectOnce } from './useEffectOnce';
+import { AxiosResponse } from 'axios';
 
-export const useAsync = (asyncFunction) => {
+export const useAsync = <T>(asyncFunction: () => Promise<AxiosResponse<T>>) => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [data, setData] = useState(null);
+  const [error, setError] = useState<null | any>(null);
+  const [data, setData] = useState<null | T>(null);
 
   const execute = async () => {
     setLoading(true);
@@ -12,7 +13,7 @@ export const useAsync = (asyncFunction) => {
     setData(null);
     try {
       const response = await asyncFunction();
-      setData(response?.data);
+      setData(response?.data ?? null);
       return response;
     } catch (error) {
       setError(error);
@@ -21,7 +22,9 @@ export const useAsync = (asyncFunction) => {
     }
   };
 
-  useEffectOnce(execute);
+  useEffectOnce(() => {
+    execute();
+  });
 
   return { execute, loading, error, data };
 };

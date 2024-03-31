@@ -1,26 +1,31 @@
-import styles from './EditableCard.module.scss';
-import classNames from 'classnames/bind';
-import { useCallback, useRef, useState } from 'react';
-import { Card } from 'sharing/ui-card';
-import { CardContent } from 'sharing/ui-card-content';
-import { CardImage } from 'sharing/ui-card-image';
-import { Popover } from 'sharing/ui-popover';
+import styles from "./EditableCard.module.scss";
+import classNames from "classnames/bind";
+import { CSSProperties, MouseEventHandler, useCallback, useRef, useState } from "react";
+import { Card } from "sharing/ui-card";
+import { CardContent } from "sharing/ui-card-content";
+import { CardImage } from "sharing/ui-card-image";
+import { Popover } from "sharing/ui-popover";
 
 const cx = classNames.bind(styles);
 
-interface EditableCardProps {
+type EditableCardProps = {
   url: string;
   imageSource: string;
   alt: string;
-  elapsedTime: number;
+  elapsedTime: string;
   description: string;
-  createdAt: number;
-  popoverPosition: string;
+  createdAt: string;
+  popoverPosition: {
+    top?: CSSProperties["top"];
+    right?: CSSProperties["right"];
+    bottom?: CSSProperties["bottom"];
+    left?: CSSProperties["left"];
+  };
   onDeleteClick: () => void;
   onAddToFolderClick: () => void;
-}
+};
 
-export const EditableCard: React.FC<EditableCardProps> = ({
+export const EditableCard = ({
   url,
   imageSource,
   alt,
@@ -30,32 +35,32 @@ export const EditableCard: React.FC<EditableCardProps> = ({
   popoverPosition,
   onDeleteClick,
   onAddToFolderClick,
-}) => {
+}: EditableCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const kebabButtonRef = useRef(null);
   const handleMouseOver = () => setIsHovered(true);
   const handleMouseLeave = () => setIsHovered(false);
-  const handleKebabClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleKebabClick: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
     setIsPopoverOpen(true);
   };
   const handleBackgroundClick = useCallback(() => {
     setIsPopoverOpen(false);
   }, []);
-  const handleDeleteClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleDeleteClick: MouseEventHandler<HTMLLIElement> = (event) => {
     event.preventDefault();
     onDeleteClick();
     setIsPopoverOpen(false);
   };
-  const handleAddToFolderClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleAddToFolderClick: MouseEventHandler<HTMLLIElement> = (event) => {
     event.preventDefault();
     onAddToFolderClick();
     setIsPopoverOpen(false);
   };
 
   return (
-    <a href={url} target='_blank' rel='noopener noreferrer'>
+    <a href={url} target="_blank" rel="noopener noreferrer">
       <Card onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
         <CardImage imageSource={imageSource} alt={alt} isZoomedIn={isHovered} />
         <CardContent
@@ -64,11 +69,11 @@ export const EditableCard: React.FC<EditableCardProps> = ({
           createdAt={createdAt}
           isHovered={isHovered}
         />
-        <button className={cx('star')} onClick={(event) => event.preventDefault()}>
-          <img src='images/star.svg' alt='즐겨찾기를 나타내는 별' />
+        <button className={cx("star")} onClick={(event) => event.preventDefault()}>
+          <img src="images/star.svg" alt="즐겨찾기를 나타내는 별" />
         </button>
-        <button ref={kebabButtonRef} className={cx('kebab')} onClick={handleKebabClick}>
-          <img src='images/kebab.svg' alt='더보기를 나타내는 점 3개' />
+        <button ref={kebabButtonRef} className={cx("kebab")} onClick={handleKebabClick}>
+          <img src="images/kebab.svg" alt="더보기를 나타내는 점 3개" />
         </button>
         <Popover
           isOpen={isPopoverOpen}
@@ -76,7 +81,7 @@ export const EditableCard: React.FC<EditableCardProps> = ({
           anchorPosition={popoverPosition}
           onBackgroundClick={handleBackgroundClick}
         >
-          <ul className={cx('popover-list')}>
+          <ul className={cx("popover-list")}>
             <li onClick={handleDeleteClick}>삭제하기</li>
             <li onClick={handleAddToFolderClick}>폴더에 추가</li>
           </ul>

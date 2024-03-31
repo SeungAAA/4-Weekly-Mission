@@ -1,11 +1,12 @@
 import styles from './AddFolderButton.module.scss';
 import classNames from 'classnames/bind';
 import { ReactComponent as AddIcon } from './add.svg';
+import { MouseEventHandler } from 'react';
 
 const cx = classNames.bind(styles);
 
 interface AddFolderButtonProps {
-  onClick: () => void;
+  onClick: MouseEventHandler<HTMLElement>;
 }
 
 export const AddFolderButton = ({ onClick }: AddFolderButtonProps) => {

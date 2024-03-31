@@ -7,15 +7,13 @@ import { LOGO_IMAGE, TEXT } from './constant';
 
 const cx = classNames.bind(styles);
 
-interface ProfileData {
-  username: string;
-  profileImageUrl: string;
-}
-
-interface NavigationBarProps {
-  profile?: ProfileData;
+type NavigationBarProps = {
+  profile: {
+    imageSource: string;
+    email: string;
+  } | null;
   isSticky: boolean;
-}
+};
 
 export const NavigationBar = ({ profile, isSticky }: NavigationBarProps) => {
   return (

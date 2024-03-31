@@ -3,11 +3,13 @@ import { axiosInstance } from 'sharing/util';
 import { mapLinksData } from 'link/util-map/mapLinksData';
 import { useAsync } from 'sharing/util';
 import { ALL_LINKS_ID } from './constant';
+import { SelectedFolderId } from 'folder/type';
+import { LinkRawData } from 'link/type';
 
-export const useGetLinks = (folderId = ALL_LINKS_ID) => {
+export const useGetLinks = (folderId: SelectedFolderId = ALL_LINKS_ID) => {
   const queryString = folderId === ALL_LINKS_ID ? '' : `?folderId=${folderId}`;
   const getLinks = useCallback(
-    () => axiosInstance.get(`users/1/links${queryString}`),
+    () => axiosInstance.get<{ data: LinkRawData[] }>(`users/1/links${queryString}`),
     [queryString]
   );
   const { execute, loading, error, data } = useAsync(getLinks);
@@ -17,25 +19,18 @@ export const useGetLinks = (folderId = ALL_LINKS_ID) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [folderId]);
 
-  interface mapDataFormatProps {
-    id: number;
-    created_at: number;
-    url: string;
-    image_source: string;
-    title: string;
-    description: string;
-  }
-
   const mapDataFormat = ({
     id,
     created_at,
+    updated_at,
     url,
     image_source,
     title,
     description,
-  }: mapDataFormatProps) => ({
+  }: LinkRawData) => ({
     id,
     createdAt: created_at,
+    updatedAt: updated_at,
     imageSource: image_source,
     url,
     title,
