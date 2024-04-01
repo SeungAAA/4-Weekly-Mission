@@ -1,13 +1,13 @@
-import { Link } from "link/type";
-import { ChangeEventHandler, MouseEventHandler, useState } from "react";
+import { Link } from '@/src/link/type';
+import { ChangeEventHandler, MouseEventHandler, useState } from 'react';
 
 export const useSearchLink = (links: Link[]) => {
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState('');
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     setSearchValue(event.target.value);
   };
   const handleCloseClick: MouseEventHandler<HTMLButtonElement> = () => {
-    setSearchValue("");
+    setSearchValue('');
   };
 
   const result = links.filter((link) => {

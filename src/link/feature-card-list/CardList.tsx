@@ -1,12 +1,12 @@
-import { useGetFolders } from "folder/data-access-folder";
-import { AddLinkModal } from "link/ui-add-link-modal";
-import { EditableCard } from "link/ui-editable-card";
-import { NoLink } from "link/ui-no-link";
-import { KeyboardEventHandler, useCallback, useRef, useState } from "react";
-import { CardList as UiCardList } from "link/ui-card-list";
-import { AlertModal } from "sharing/ui-alert-modal";
-import { MODALS_ID } from "./constant";
-import { Link } from "link/type";
+import { useGetFolders } from '@/src/folder/data-access-folder';
+import { AddLinkModal } from '@/src/link/ui-add-link-modal';
+import { EditableCard } from '@/src/link/ui-editable-card';
+import { NoLink } from '@/src/link/ui-no-link';
+import { KeyboardEventHandler, useCallback, useRef, useState } from 'react';
+import { CardList as UiCardList } from '@/src/link/ui-card-list';
+import { AlertModal } from '@/src/sharing/ui-alert-modal';
+import { MODALS_ID } from './constant';
+import { Link } from '@/src/link/type';
 
 type CardListProps = {
   links: Link[];
@@ -17,11 +17,11 @@ export const CardList = ({ links }: CardListProps) => {
   const cardListRef = useRef(null);
   const [selectedFolderId, setSelectedFolderId] = useState<number | null>(null);
   const [currentModal, setCurrentModal] = useState<string | null>(null);
-  const [selectedLinkUrl, setSelectedLinkUrl] = useState<string>("");
+  const [selectedLinkUrl, setSelectedLinkUrl] = useState<string>('');
 
   const closeModal = () => setCurrentModal(null);
   const handleKeyDown: KeyboardEventHandler<HTMLDivElement> = (event) => {
-    if (event.key === "Escape") {
+    if (event.key === 'Escape') {
       closeModal();
     }
   };
@@ -32,8 +32,8 @@ export const CardList = ({ links }: CardListProps) => {
         cardListRef?.current !== null
           ? window
               .getComputedStyle(cardListRef?.current)
-              .getPropertyValue("grid-template-columns")
-              .split(" ").length
+              .getPropertyValue('grid-template-columns')
+              .split(' ').length
           : 1;
       if ((cardIndex + 1) % count === 0) {
         return { right: 0 };
@@ -52,20 +52,20 @@ export const CardList = ({ links }: CardListProps) => {
           {...link}
           popoverPosition={getPopoverPosition(index)}
           onDeleteClick={() => {
-            setSelectedLinkUrl(link?.url ?? "");
+            setSelectedLinkUrl(link?.url ?? '');
             setCurrentModal(MODALS_ID.deleteLink);
           }}
           onAddToFolderClick={() => {
-            setSelectedLinkUrl(link?.url ?? "");
+            setSelectedLinkUrl(link?.url ?? '');
             setCurrentModal(MODALS_ID.addToFolder);
           }}
         />
       ))}
       <AlertModal
         isOpen={currentModal === MODALS_ID.deleteLink}
-        title="링크 삭제"
+        title='링크 삭제'
         description={selectedLinkUrl}
-        buttonText="삭제하기"
+        buttonText='삭제하기'
         onClick={() => {}}
         onCloseClick={closeModal}
         onKeyDown={handleKeyDown}
