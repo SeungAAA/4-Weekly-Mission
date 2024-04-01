@@ -1,4 +1,4 @@
-import styles from 'components/SignInput/SignInpupt.module.css';
+import styles from '@/src/components/SignInput/SignInpupt.module.css';
 import { useEffect, useRef, useState } from 'react';
 import { ICreateUser } from '/types';
 

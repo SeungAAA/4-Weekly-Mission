@@ -1,16 +1,16 @@
-import { useGetFolders } from "folder/data-access-folder";
-import { useGetLinks } from "link/data-access-link";
-import { Layout } from "sharing/feature-layout";
-import { FolderLayout } from "page-layout/FolderLayout";
-import { FolderToolBar } from "folder/feature-folder-tool-bar";
-import { SearchBar } from "link/ui-search-bar";
-import { useState } from "react";
-import { ALL_LINKS_ID } from "link/data-access-link/constant";
-import { LinkForm } from "link/feature-link-form";
-import { CardList } from "link/feature-card-list";
-import { SelectedFolderId } from "folder/type";
-import { useSearchLink } from "link/util-search-link/useSearchLink";
-import { useIntersectionObserver } from "sharing/util/useIntersectionObserver";
+import { useGetFolders } from '@/src/folder/data-access-folder';
+import { useGetLinks } from '@/src/link/data-access-link';
+import { Layout } from '@/src/sharing/feature-layout';
+import { FolderLayout } from '@/src/page-layout/FolderLayout';
+import { FolderToolBar } from '@/src/folder/feature-folder-tool-bar';
+import { SearchBar } from '@/src/link/ui-search-bar';
+import { useState } from 'react';
+import { ALL_LINKS_ID } from '@/src/link/data-access-link/constant';
+import { LinkForm } from '@/src/link/feature-link-form';
+import { CardList } from '@/src/link/feature-card-list';
+import { SelectedFolderId } from '@/src/folder/type';
+import { useSearchLink } from '@/src/link/util-search-link/useSearchLink';
+import { useIntersectionObserver } from '@/src/sharing/util/useIntersectionObserver';
 
 export const FolderPage = () => {
   const { data: folders } = useGetFolders();
