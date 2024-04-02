@@ -1,27 +1,16 @@
-import styles from '@/src/components/SignInput/SignInpupt.module.css';
+import styles from 'inpupt.module.scss';
 import { useEffect, useRef, useState } from 'react';
-import { ICreateUser } from '/types';
 
-const userSchema = {
-  id: {
-    validate: (id: string) => {
-      // ~~~
-      return true | fasle; // '아이디는 영문으로만 하세요.'
-    },
-  },
-};
-
-const SignForm = () => {
-  const [userFormData, setUserFormData] = useState<ICreateUser>({
-    id,
-    value,
-    pw,
-  });
-  const [hiddenPassword, setHiddenPassword] = useState(false);
-  const [isIdError, setIsIdError] = useState('');
-  const [isPwError, setIsPwError] = useState('');
-  const PasswordInputRef = useRef(null);
-  const IdInputRef = useRef(null);
+const SignInput = () => {
+  const [idValue, setIdValue] = useState<string>('');
+  const [pwValue, setPwValue] = useState<string>('');
+  const [idInputFocused, setIdInputFocused] = useState<boolean>(false);
+  const [pwInputFocused, setPwInputFocused] = useState<boolean>(false);
+  const [isPasswordOpened, setIsPasswordOpened] = useState<boolean>(false);
+  const [isIdError, setIsIdError] = useState<string>('');
+  const [isPwError, setIsPwError] = useState<string>('');
+  const PasswordInputRef = useRef<HTMLInputElement>(null);
+  const IdInputRef = useRef<HTMLInputElement>(null);
 
   const handleIdInputFocused = () => {
     setIdInputFocused(true);
@@ -31,25 +20,24 @@ const SignForm = () => {
     setPwInputFocused(true);
   };
 
-  const handleEyeButtonClicked = (e) => {
-    e.preventDefault();
-    if (isPasswordOpened) {
-      PasswordInputRef.current.type = 'text';
-      return setIsPasswordOpened(false);
+  const handleEyeButtonClicked = () => {
+    const passwordInput = PasswordInputRef.current;
+    if (passwordInput) {
+      if (isPasswordOpened) {
+        passwordInput.type = 'text';
+        setIsPasswordOpened(false);
+      } else {
+        passwordInput.type = 'password';
+        setIsPasswordOpened(true);
+      }
     }
-    PasswordInputRef.current.type = 'password';
-    return setIsPasswordOpened(true);
   };
 
-  const handleIdInputChange = (e) => {
+  const handleIdInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIdValue(e.target.value);
-    setUserFormData((prev) => ({
-      ...prev,
-      id: e.target.value,
-    }));
   };
 
-  const handlePwInputChange = (e) => {
+  const handlePwInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPwValue(e.target.value);
   };
 
