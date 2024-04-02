@@ -5,6 +5,7 @@ import { Card } from '@/src/sharing/ui-card';
 import { CardContent } from '@/src/sharing/ui-card-content';
 import { CardImage } from '@/src/sharing/ui-card-image';
 import { Popover } from '@/src/sharing/ui-popover';
+import Image from 'next/image';
 
 const cx = classNames.bind(styles);
 
@@ -70,10 +71,10 @@ export const EditableCard = ({
           isHovered={isHovered}
         />
         <button className={cx('star')} onClick={(event) => event.preventDefault()}>
-          <img src='images/star.svg' alt='즐겨찾기를 나타내는 별' />
+          <Image src='images/star.svg' alt='즐겨찾기를 나타내는 별' />
         </button>
         <button ref={kebabButtonRef} className={cx('kebab')} onClick={handleKebabClick}>
-          <img src='images/kebab.svg' alt='더보기를 나타내는 점 3개' />
+          <Image src='images/kebab.svg' alt='더보기를 나타내는 점 3개' />
         </button>
         <Popover
           isOpen={isPopoverOpen}
