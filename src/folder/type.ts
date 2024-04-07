@@ -1,4 +1,4 @@
-import { SampleLinkRawData } from '@/src/link/type';
+import { SampleLinkRawData } from "@/src/link/type";
 
 export type SampleFolderRawData = {
   id: number;
@@ -29,4 +29,4 @@ export type Folder = {
   linkCount: number;
 };
 
-export type SelectedFolderId = number | 'all';
+export type SelectedFolderId = number | "all";

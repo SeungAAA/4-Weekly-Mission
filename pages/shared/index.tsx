@@ -32,3 +32,5 @@ export const SharedPage = () => {
     </Layout>
   );
 };
+
+export default SharedPage;

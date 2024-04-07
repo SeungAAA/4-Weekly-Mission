@@ -1,5 +1,5 @@
-import { format } from 'date-fns/format';
-import { getElapsedTime } from '@/src/sharing/util';
+import format from "date-fns/format";
+import { getElapsedTime } from "@/src/sharing/util";
 
 export const mapLinksData = (link: {
   id: number;
@@ -19,6 +19,6 @@ export const mapLinksData = (link: {
     alt: `${title ?? url}의 대표 이미지`,
     elapsedTime: getElapsedTime(createdAt),
     description,
-    createdAt: format(new Date(createdAt), 'yyyy. MM. dd'),
+    createdAt: format(new Date(createdAt), "yyyy. MM. dd"),
   };
 };

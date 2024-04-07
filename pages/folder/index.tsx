@@ -9,10 +9,10 @@ import { ALL_LINKS_ID } from '@/src/link/data-access-link/constant';
 import { LinkForm } from '@/src/link/feature-link-form';
 import { CardList } from '@/src/link/feature-card-list';
 import { SelectedFolderId } from '@/src/folder/type';
-import { useSearchLink } from '@/src/link/util-search-link/useSearchLink';
-import { useIntersectionObserver } from '@/src/sharing/util/useIntersectionObserver';
+import { useSearchLink } from '@/src/link/util-search-link';
+import { useIntersectionObserver } from '@/src/sharing/util';
 
-export const FolderPage = () => {
+const FolderPage = () => {
   const { data: folders } = useGetFolders();
   const [selectedFolderId, setSelectedFolderId] = useState<SelectedFolderId>(ALL_LINKS_ID);
   const { data: links, loading } = useGetLinks(selectedFolderId);
@@ -38,3 +38,5 @@ export const FolderPage = () => {
     </Layout>
   );
 };
+
+export default FolderPage;
