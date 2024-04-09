@@ -9,7 +9,7 @@ import { ChangeEvent } from 'react';
 
 export const cx = classNames.bind(styles);
 
-const SignInPage = () => {
+const SignUpPage = () => {
   const { register, handleSubmit } = useForm();
   return (
     <div>
@@ -24,8 +24,8 @@ const SignInPage = () => {
         />
       </Link>
       <div className={cx('description')}>
-        <p>회원이 아니신가요?</p>
-        <Link href='/signup'>회원 가입하기</Link>
+        <p>이미 회원이신가요?</p>
+        <Link href='/signin'>로그인 하기</Link>
       </div>
 
       <form className={cx('form')} onSubmit={handleSubmit(onSubmitHandler)}>
@@ -71,8 +71,28 @@ const SignInPage = () => {
             }}
           ></Input>
         </div>
-        <button type='submit' className={cx('loginBtn')}>
-          로그인
+        <div className={cx('passwordcheckInput')}>
+          <label htmlFor='password_check'>비밀번호 확인</label>
+          <Input
+            register={register('passwordcheck', {
+              required: {
+                value: true,
+                message: '비밀번호를 입력해 주세요.',
+              },
+              validate: (value, formValues) => {
+                return value === formValues.password || '비밀번호가 일치하지 않아요.';
+              },
+            })}
+            type='passwordcheck'
+            value={''}
+            name={''}
+            onChange={function (e: ChangeEvent<HTMLInputElement>): void {
+              throw new Error('Function not implemented.');
+            }}
+          ></Input>
+        </div>
+        <button type='submit' className={cx('submitbtn')}>
+          회원가입
         </button>
       </form>
     </div>

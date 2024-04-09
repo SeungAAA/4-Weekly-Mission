@@ -14,7 +14,7 @@ export type InputProps = {
   helperText?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onBlur?: FocusEventHandler<HTMLInputElement>;
-  register: UseFormRegisterReturn<'email' | 'password'>;
+  register: UseFormRegisterReturn<'email' | 'password' | 'passwordcheck'>;
 };
 
 export const Input = ({
