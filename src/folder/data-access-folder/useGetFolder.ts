@@ -1,13 +1,27 @@
-import { SampleFolderRawData } from "@/src/folder/type";
-import { mapFolderData } from "@/src/folder/util-map";
-import { useAsync } from "@/src/sharing/util";
 import { axiosInstance } from "@/src/sharing/util";
+import { FolderRawData } from "../type";
+import { DEFAULT_FOLDER } from "./constant";
+import { useQuery } from "@tanstack/react-query";
 
-export const useGetFolder = () => {
-  const getFolder = () => axiosInstance.get<{ folder: SampleFolderRawData }>("sample/folder");
-  const { loading, error, data } = useAsync(getFolder);
+export const useGetFolder = (folderId: string) => {
+  const getFolder = () => axiosInstance.get<FolderRawData[]>(`/folders/${folderId}`);
 
-  const folderData = mapFolderData(data?.folder);
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["folders", folderId],
+    queryFn: getFolder,
+    enabled: !!folderId,
+  });
 
-  return { loading, error, data: folderData };
+  const folderDataResponse = data?.data?.[0];
+
+  const folderData = folderDataResponse
+    ? {
+        id: folderDataResponse.id,
+        name: folderDataResponse.name,
+        userId: folderDataResponse.user_id,
+        createdAt: folderDataResponse.created_at,
+      }
+    : DEFAULT_FOLDER;
+
+  return { isLoading, error, data: folderData };
 };

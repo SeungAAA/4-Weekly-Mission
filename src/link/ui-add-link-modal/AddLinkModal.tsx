@@ -2,7 +2,7 @@ import styles from "./AddLinkModal.module.scss";
 import classNames from "classnames/bind";
 import { Folder } from "@/src/folder/type";
 import { FolderItem } from "@/src/folder/ui-folder-item";
-import { Dispatch, KeyboardEventHandler, SetStateAction } from "react";
+import { Dispatch, KeyboardEventHandler, MouseEventHandler, SetStateAction } from "react";
 import { Modal } from "@/src/sharing/ui-modal";
 import { ModalContentBox } from "@/src/sharing/ui-modal-content-box";
 import { ModalContentButton } from "@/src/sharing/ui-modal-content-button";
@@ -17,8 +17,8 @@ type AddLinkModalProps = {
   description: string;
   selectedFolderId: number | null;
   setSelectedFolderId: Dispatch<SetStateAction<number | null>>;
-  onAddClick: () => void;
-  onCloseClick: () => void;
+  onAddClick: MouseEventHandler<HTMLButtonElement>;
+  onCloseClick: MouseEventHandler<HTMLButtonElement | HTMLDivElement>;
   onKeyDown: KeyboardEventHandler<HTMLDivElement>;
 };
 

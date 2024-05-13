@@ -8,8 +8,9 @@ export const mapLinksData = (link: {
   url: string;
   title: string;
   description: string;
+  favorite: boolean;
 }) => {
-  const { id, createdAt, url, imageSource, title, description } = link;
+  const { id, createdAt, url, imageSource, title, description, favorite } = link;
 
   return {
     id,
@@ -20,5 +21,6 @@ export const mapLinksData = (link: {
     elapsedTime: getElapsedTime(createdAt),
     description,
     createdAt: format(new Date(createdAt), "yyyy. MM. dd"),
+    favorite,
   };
 };

@@ -8,11 +8,17 @@ type CardProps = {
   children: ReactNode;
   onMouseOver: MouseEventHandler<HTMLDivElement>;
   onMouseLeave: MouseEventHandler<HTMLDivElement>;
+  onMouseDown?: MouseEventHandler<HTMLDivElement>;
 };
 
-export const Card = ({ children, onMouseOver, onMouseLeave }: CardProps) => {
+export const Card = ({ children, onMouseOver, onMouseLeave, onMouseDown }: CardProps) => {
   return (
-    <div className={cx("container")} onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
+    <div
+      className={cx("container")}
+      onMouseOver={onMouseOver}
+      onMouseLeave={onMouseLeave}
+      onMouseDown={onMouseDown}
+    >
       {children}
     </div>
   );

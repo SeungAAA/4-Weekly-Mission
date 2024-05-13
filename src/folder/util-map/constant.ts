@@ -1,4 +1,4 @@
-export const DEFAULT_FOLDER_DATA = {
+export const DEFAULT_SAMPLE_FOLDER_DATA = {
   profileImage: "",
   ownerName: "",
   folderName: "",

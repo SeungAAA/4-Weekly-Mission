@@ -14,6 +14,7 @@ type InputModalProps = {
   title: string;
   placeholder: string;
   buttonText: string;
+  onClick: MouseEventHandler<HTMLButtonElement>;
   onCloseClick: MouseEventHandler<HTMLDivElement | HTMLButtonElement>;
   onKeyDown: KeyboardEventHandler<HTMLDivElement>;
   value: string;
@@ -25,6 +26,7 @@ export const InputModal = ({
   title,
   placeholder,
   buttonText,
+  onClick,
   onCloseClick,
   onKeyDown,
   value,
@@ -37,7 +39,7 @@ export const InputModal = ({
         content={
           <div className={cx("modal-content")}>
             <Input value={value} onChange={onChange} placeholder={placeholder} />
-            <ModalContentButton onClick={() => {}}>{buttonText}</ModalContentButton>
+            <ModalContentButton onClick={onClick}>{buttonText}</ModalContentButton>
           </div>
         }
         onCloseClick={onCloseClick}

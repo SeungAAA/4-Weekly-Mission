@@ -1,19 +1,20 @@
-import { MouseEventHandler } from "react";
 import styles from "./FolderButton.module.scss";
 import classNames from "classnames/bind";
+import { Url } from "next/dist/shared/lib/router/router";
+import Link from "next/link";
 
 const cx = classNames.bind(styles);
 
 type FolderButtonProps = {
   text: string;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  href: Url;
   isSelected?: boolean;
 };
 
-export const FolderButton = ({ text, onClick, isSelected = false }: FolderButtonProps) => {
+export const FolderButton = ({ text, href, isSelected = false }: FolderButtonProps) => {
   return (
-    <button className={cx("container", { selected: isSelected })} onClick={onClick}>
+    <Link className={cx("container", { selected: isSelected })} href={href}>
       <span>{text}</span>
-    </button>
+    </Link>
   );
 };

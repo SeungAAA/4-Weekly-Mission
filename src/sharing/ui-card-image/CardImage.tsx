@@ -8,14 +8,15 @@ type CardImageProps = {
   imageSource: string;
   isZoomedIn: boolean;
   alt: string;
+  isActive?: boolean;
 };
 
-export const CardImage = ({ imageSource, isZoomedIn, alt }: CardImageProps) => {
+export const CardImage = ({ imageSource, isZoomedIn, alt, isActive }: CardImageProps) => {
   return (
-    <div className={cx("container")}>
+    <div className={cx("container", { active: isActive })}>
       <img
         src={imageSource ?? DEFAULT_IMAGE}
-        className={cx("image", { zoomin: isZoomedIn })}
+        className={cx("image", { zoomin: isZoomedIn, active: isActive })}
         alt={alt}
       />
     </div>

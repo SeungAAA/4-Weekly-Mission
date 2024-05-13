@@ -21,7 +21,7 @@ export const FolderItem = ({
     <button className={cx("button", { selected: isSelected })} onClick={onClick}>
       <span className={cx("name", { selected: isSelected })}>{folderName}</span>
       <span className={cx("count")}>{linkCount}개 링크</span>
-      {isSelected && <img className={cx("check")} src="images/check.svg" alt="체크 아이콘" />}
+      {isSelected && <img className={cx("check")} src="/images/check.svg" alt="체크 아이콘" />}
     </button>
   );
 };

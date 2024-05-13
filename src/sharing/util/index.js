@@ -8,3 +8,4 @@ export * from "./useBackgroundClick";
 export * from "./useKakaoSdk";
 export * from "./useIntersectionObserver";
 export * from "./useEnhancedEffect";
+export * from "./queryClient";

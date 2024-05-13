@@ -16,6 +16,7 @@ export type LinkRawData = {
   title: string;
   description: string;
   folder_id: number;
+  favorite: boolean
 };
 
 export type Link = {
@@ -27,4 +28,5 @@ export type Link = {
   description: string;
   elapsedTime: string;
   createdAt: string;
+  favorite: boolean
 };

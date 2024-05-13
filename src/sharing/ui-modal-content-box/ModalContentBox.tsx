@@ -14,7 +14,7 @@ export const ModalContentBox = ({ header, content, onCloseClick }: ModalContentB
   return (
     <div className={cx("container")}>
       <button onClick={onCloseClick}>
-        <img className={cx("close")} src="images/close.svg" alt="X모양 닫기 버튼" />
+        <img className={cx("close")} src="/images/close.svg" alt="X모양 닫기 버튼" />
       </button>
       <div className={cx("items")}>
         {header}

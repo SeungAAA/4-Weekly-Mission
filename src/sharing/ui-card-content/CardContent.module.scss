@@ -8,6 +8,7 @@
   justify-content: space-between;
   gap: 1rem;
   transition: background-color 0.3s ease-in-out;
+  border-radius: 0 0 1.3rem 1.3rem;
 
   &.hovered {
     background-color: $color-light-blue;

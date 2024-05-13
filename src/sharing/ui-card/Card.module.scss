@@ -9,6 +9,11 @@
   box-shadow: 0 0.5rem 2.5rem 0 rgba(0, 0, 0, 0.08);
   border-radius: 1.5rem;
 
+  &:active {
+    box-shadow: 0 0.5rem 4rem 0 rgba(0, 0, 0, 0.16);
+    border: 0.2rem solid $color-primary;
+  }
+
   @include tablet {
     width: 34rem;
     height: 33.4rem;
